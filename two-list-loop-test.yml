@@ -1,0 +1,18 @@
+---
+
+- name: test
+  hosts: localhost
+  gather_facts: no
+  vars:
+    list_one:
+      - 1
+      - 2
+    list_two:
+      - one
+      - two
+    
+  tasks:
+    - name: with_nested -> loop
+      ansible.builtin.debug:
+        msg: "{{ item.0 }} - {{ item.1 }}"
+      loop: "{{ list_one|product(list_two)|list }}"
